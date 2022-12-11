@@ -1,36 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
-import MyButton from './MyButton'
+import './App.css';
+import Footer from './components/Footer/Footer';
+import Header from './components/Header/Header';
+import LandingPage from './screens/LandingPage/LandingPage';
+import {
+	BrowserRouter,
+	Route,
+	Routes
+} from 'react-router-dom';
+import MyNotes from './screens/MyNotes/MyNotes';
+import LoginScreen from './screens/LoginScreen/LoginScreen';
+import RegisterScreen from './screens/RegisterScreen/RegisterScreen';
+import CreateNote from './screens/CreateNote/CreateNote';
+import SingleNote from './screens/SingleNote/SingleNote';
+import { useState } from 'react';
+import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+	const [search, setSearch] = useState("");
 
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <MyButton/>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
-}
+	return (
+		<BrowserRouter>
+			<Header setSearch={setSearch} />
+			<main>
+				<Routes>
+					<Route path="/" element={<LandingPage />} exact />
+					<Route path="/login" element={<LoginScreen />} />
+					<Route path="/register" element={<RegisterScreen />} />
+					<Route path="/createnote" element={<CreateNote />} />
+					<Route path="/note/:id" element={<SingleNote />} />
+					<Route path="/mynotes" element={<MyNotes search={search} />} />
+					<Route path="/profile" element={<ProfileScreen />} />
+				</Routes>
+			</main>
+			<Footer />
+		</BrowserRouter>
+	)
+};
 
-export default App
+export default App;
