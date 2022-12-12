@@ -1,17 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
 	AppBar,
 	Box,
 	Toolbar,
 	Typography,
 	Button,
-	IconButton
+	Menu,
+	MenuItem
 } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
 
 const Header = ({ setSearch }) => {
+	const [anchorEl, setAnchorEl] = useState(null);
+
+	const handleMenu = (e) => {
+		setAnchorEl(e.currentTarget);
+	};
+
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
+
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -28,19 +38,37 @@ const Header = ({ setSearch }) => {
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="static">
 				<Toolbar>
-				<IconButton
-					size="large"
-					edge="start"
-					color="inherit"
-					aria-label="menu"
-					sx={{ mr: 2 }}
-				>
-					<MenuIcon />
-				</IconButton>
-				<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-					Note Zipper
-				</Typography>
-				<Button color="inherit">Login</Button>
+					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+						Note Zipper
+					</Typography>
+
+					{userInfo ? (
+						<>
+							<Button color="inherit" href="/mynotes">My Notes</Button>
+							<Button color="inherit" onClick={handleMenu}>{userInfo.name}</Button>
+							<Menu 
+								id="menu-appbar"
+								anchorEl={anchorEl}
+								anchorOrigin={{
+									vertical: 'top',
+									horizontal: 'right',
+								}}
+								keepMounted
+								transformOrigin={{
+									vertical: 'top',
+									horizontal: 'right',
+								}}
+								open={Boolean(anchorEl)}
+								onClose={handleClose}
+							>
+								<MenuItem href="/profile">My Profile</MenuItem>
+								{/* <NavDropdown.Divider /> */}
+								<MenuItem onClick={logoutHandler}>Logout</MenuItem>
+							</Menu>
+						</>
+					) : (
+						<Button color="inherit" href="/login">Login</Button>
+					)}
 				</Toolbar>
 			</AppBar>
 		</Box>
