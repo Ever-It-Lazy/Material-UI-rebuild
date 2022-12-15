@@ -61,8 +61,7 @@ const Header = ({ setSearch }) => {
 								open={Boolean(anchorEl)}
 								onClose={handleClose}
 							>
-								<MenuItem href="/profile">My Profile</MenuItem>
-								{/* <NavDropdown.Divider /> */}
+								<MenuItem component="a" href="/profile" divider={true}>My Profile</MenuItem>
 								<MenuItem onClick={logoutHandler}>Logout</MenuItem>
 							</Menu>
 						</>
