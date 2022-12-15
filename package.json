@@ -4,7 +4,10 @@
   "main": "server.js",
   "author": "Everett Lindsay",
   "scripts": {
-    "start": "node backend/server.js"
+    "start": "nodemon backend/server.js",
+    "client": "cd frontend && yarn dev",
+    "dev": "concurrently \"yarn start\" \"yarn run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd frontend yarn && yarn build"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
