@@ -151,7 +151,7 @@ const ProfileScreen = () => {
 						</Box>
 					</>
 					<Box
-						style={{
+						sx={{
 							display: "flex",
 							alignItems: "center",
 							justifyContent: "center"
