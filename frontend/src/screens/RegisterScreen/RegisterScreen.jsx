@@ -76,8 +76,8 @@ const RegisterScreen = () => {
 				{message && <ErrorMessage severity="error">{message}</ErrorMessage>}
 				{loading && <Loading />}
 				<Box component="form" onSubmit={submitHandler}>
-					<FormControl fullWidth={true} controlId="name">
-						<InputLabel>Name</InputLabel>
+					<FormControl fullWidth={true}>
+						<InputLabel htmlFor="name">Name</InputLabel>
 						<OutlinedInput
 							type="name"
 							value={name}
