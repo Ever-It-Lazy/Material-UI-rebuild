@@ -14,26 +14,39 @@ import CreateNote from './screens/CreateNote/CreateNote';
 import SingleNote from './screens/SingleNote/SingleNote';
 import { useState } from 'react';
 import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
+import { createTheme, ThemeProvider } from '@mui/material'
+
+const theme = createTheme({
+	components: {
+		MuiButton: {
+			defaultProps: {
+				variant: 'outlined'
+			}
+		}
+	}
+});
 
 const App = () => {
 	const [search, setSearch] = useState("");
 
 	return (
-		<BrowserRouter>
-			<Header setSearch={setSearch} />
-			<main>
-				<Routes>
-					<Route path="/" element={<LandingPage />} exact />
-					<Route path="/login" element={<LoginScreen />} />
-					<Route path="/register" element={<RegisterScreen />} />
-					<Route path="/createnote" element={<CreateNote />} />
-					<Route path="/note/:id" element={<SingleNote />} />
-					<Route path="/mynotes" element={<MyNotes search={search} />} />
-					<Route path="/profile" element={<ProfileScreen />} />
-				</Routes>
-			</main>
-			<Footer />
-		</BrowserRouter>
+		<ThemeProvider theme={theme}>
+			<BrowserRouter>
+				<Header setSearch={setSearch} />
+				<main>
+					<Routes>
+						<Route path="/" element={<LandingPage />} exact />
+						<Route path="/login" element={<LoginScreen />} />
+						<Route path="/register" element={<RegisterScreen />} />
+						<Route path="/createnote" element={<CreateNote />} />
+						<Route path="/note/:id" element={<SingleNote />} />
+						<Route path="/mynotes" element={<MyNotes search={search} />} />
+						<Route path="/profile" element={<ProfileScreen />} />
+					</Routes>
+				</main>
+				<Footer />
+			</BrowserRouter>
+		</ThemeProvider>
 	)
 };
 
