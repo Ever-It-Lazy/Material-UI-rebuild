@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Box, FormControl, InputLabel, OutlinedInput, FormHelperText } from '@mui/material';
+import { Button, Box, FormControl, InputLabel, OutlinedInput } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import MainScreen from '../../components/MainScreen';
 import "./RegisterScreen.css";
