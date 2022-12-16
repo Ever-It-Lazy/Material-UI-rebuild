@@ -64,11 +64,11 @@ const MyNotes = ({ search }) => {
 					<AccordionSummary sx={{ backgroundColor: 'rgba(0,0,0,.03)' }} expandIcon={<ExpandMoreIcon />}>
 						<Typography
 							component="header"
-							sx={{ alignSelf: 'center', width: 'stretch' }}
+							sx={{ alignSelf: 'center', flexGrow: 1 }}
 						>
 							{note.title}
 						</Typography>
-						<ButtonGroup variant="outlined" sx={{ display: 'flex' }}>
+						<ButtonGroup>
 							<Button onClick={() => navigate(`/note/${note._id}`)}>Edit</Button>
 							<Button
 								color="warning"

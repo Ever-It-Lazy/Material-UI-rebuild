@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
 	AppBar,
 	Box,
@@ -8,8 +8,10 @@ import {
 	Typography,
 	Button,
 	Menu,
-	MenuItem
+	MenuItem,
+	OutlinedInput
 } from '@mui/material';
+import { logout } from "../../actions/userActions";
 
 const Header = ({ setSearch }) => {
 	const [anchorEl, setAnchorEl] = useState(null);
@@ -34,18 +36,43 @@ const Header = ({ setSearch }) => {
 	}
 
 	useEffect(() => {}, [userInfo]);
+
 	return (
-		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="static">
 				<Toolbar>
-					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+					<Typography
+						component="h1"
+						sx={{ flexGrow: 1 }}
+						onClick={() => navigate("/")}
+					>
 						Note Zipper
 					</Typography>
 
+					{userInfo && (
+						<Box component="form" sx={{ flexGrow: 1 }}>
+							<OutlinedInput
+								type="text"
+								sx={{ background: 'white' }}
+								placeholder="Search"
+								onChange={(e) => setSearch(e.target.value)}
+							/>
+						</Box>
+					)}
+
 					{userInfo ? (
 						<>
-							<Button color="inherit" href="/mynotes">My Notes</Button>
-							<Button color="inherit" onClick={handleMenu}>{userInfo.name}</Button>
+							<Button
+								variant="text" color="inherit"
+								href="/mynotes"
+								sx={{ textTransform: 'none' }}
+							>My Notes</Button>
+							<Button
+								variant="text" color="inherit"
+								onClick={handleMenu}
+								sx={{ textTransform: 'none' }}
+							>
+								{userInfo.name}
+							</Button>
 							<Menu 
 								id="menu-appbar"
 								anchorEl={anchorEl}
@@ -61,7 +88,16 @@ const Header = ({ setSearch }) => {
 								open={Boolean(anchorEl)}
 								onClose={handleClose}
 							>
-								<MenuItem component="a" href="/profile" divider={true}>My Profile</MenuItem>
+								<MenuItem component="a" href="/profile" divider={true}>
+									<img
+										alt=""
+										src={`${userInfo.pic}`}
+										width="25"
+										height="25"
+										style={{ marginRight: 10 }}
+									/>
+									My Profile
+								</MenuItem>
 								<MenuItem onClick={logoutHandler}>Logout</MenuItem>
 							</Menu>
 						</>
@@ -70,7 +106,6 @@ const Header = ({ setSearch }) => {
 					)}
 				</Toolbar>
 			</AppBar>
-		</Box>
 	);
 }
 

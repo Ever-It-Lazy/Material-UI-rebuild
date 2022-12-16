@@ -20,9 +20,14 @@ const theme = createTheme({
 	components: {
 		MuiButton: {
 			defaultProps: {
-				variant: 'outlined'
+				variant: 'contained'
 			}
-		}
+		},
+		MuiButtonGroup: {
+			defaultProps: {
+				variant: 'contained'
+			}
+		},
 	}
 });
 
