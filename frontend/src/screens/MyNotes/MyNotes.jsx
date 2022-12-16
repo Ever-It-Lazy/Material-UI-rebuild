@@ -1,15 +1,54 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { styled } from '@mui/material/styles';
 import {
-	Accordion, AccordionSummary, AccordionDetails,
 	ButtonGroup, Button, Typography
 } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import MuiAccordion from '@mui/material/Accordion';
+import MuiAccordionSummary from '@mui/material/AccordionSummary';
+import MuiAccordionDetails from '@mui/material/AccordionDetails';
+import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import { useNavigate } from 'react-router-dom';
 import MainScreen from '../../components/MainScreen';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteNoteAction, listNotes } from '../../actions/noteActions';
 import Loading from '../../components/Loading';
 import ErrorMessage from '../../components/ErrorMessage';
+
+const Accordion = styled((props) => (
+	<MuiAccordion disableGutters elevation={0} square {...props} />
+))(({ theme }) => ({
+	border: `1px solid ${theme.palette.divider}`,
+	'&:not(:last-child)': {
+		borderBottom: 0,
+	},
+	'&:before': {
+		display: 'none',
+}	,
+}));
+
+const AccordionSummary = styled((props) => (
+	<MuiAccordionSummary
+		expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }} />}
+		{...props}
+	/>
+))(({ theme }) => ({
+	backgroundColor:
+		theme.palette.mode === 'dark'
+			? 'rgba(255, 255, 255, .05)'
+			: 'rgba(0, 0, 0, .03)',
+	flexDirection: 'row-reverse',
+	'& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
+		transform: 'rotate(90deg)',
+	},
+	'& .MuiAccordionSummary-content': {
+		marginLeft: theme.spacing(1),
+	},
+}));
+
+const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
+	padding: theme.spacing(2),
+	borderTop: '1px solid rgba(0, 0, 0, .125)',
+}));
 
 const MyNotes = ({ search }) => {
 	const navigate = useNavigate();
@@ -44,6 +83,13 @@ const MyNotes = ({ search }) => {
 		}
 	}, [dispatch, userInfo, navigate, successCreate, successUpdate, successDelete]);
 
+	const [expanded, setExpanded] = useState(notes);
+	console.log(notes);
+
+	const handleChange = (panel) => (event, newExpanded) => {
+		setExpanded(newExpanded ? panel : false);
+	};
+
 	return <MainScreen title={`Welcome Back ${userInfo.name}..`}>
 		<Button
 			sx={{ marginLeft: 10, marginBottom: 6 }}
@@ -60,8 +106,8 @@ const MyNotes = ({ search }) => {
 			notes?.reverse().filter(filteredNote => (
 				filteredNote.title.toLowerCase().includes(search.toLowerCase())
 			)).map((note) => (
-				<Accordion key={note._id}>
-					<AccordionSummary sx={{ backgroundColor: 'rgba(0,0,0,.03)' }} expandIcon={<ExpandMoreIcon />}>
+				<Accordion key={note._id} expanded={expanded === note._id} onChange={handleChange(note._id)}>
+					<AccordionSummary id={note._id}>
 						<Typography
 							component="header"
 							sx={{ alignSelf: 'center', flexGrow: 1 }}
