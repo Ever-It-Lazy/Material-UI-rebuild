@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import {
 	Accordion, AccordionSummary, AccordionDetails,
-	Badge, Button, Typography,
-	Card, CardHeader, CardContent, ButtonGroup
+	ButtonGroup, Button, Typography
 } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useNavigate } from 'react-router-dom';
 import MainScreen from '../../components/MainScreen';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteNoteAction, listNotes } from '../../actions/noteActions';
@@ -45,11 +45,12 @@ const MyNotes = ({ search }) => {
 	}, [dispatch, userInfo, navigate, successCreate, successUpdate, successDelete]);
 
 	return <MainScreen title={`Welcome Back ${userInfo.name}..`}>
-		<Link to="/createnote">
-			<Button sx={{ marginLeft: 10, marginBottom: 6 }} size="1g">
-				Create New Note
-			</Button>
-		</Link>
+		<Button
+			sx={{ marginLeft: 10, marginBottom: 6 }}
+			onClick={() => navigate("/createnote")}
+		>
+			Create New Note
+		</Button>
 		{errorDelete && <ErrorMessage severity="error">{errorDelete}</ErrorMessage>}
 		{loadingDelete && <Loading/>}
 		{error && <ErrorMessage severity="error">{error}</ErrorMessage>}
@@ -60,35 +61,38 @@ const MyNotes = ({ search }) => {
 				filteredNote.title.toLowerCase().includes(search.toLowerCase())
 			)).map((note) => (
 				<Accordion key={note._id}>
-					<AccordionSummary id={note._id}>
-						<Typography>
-							<span>{note.title}</span>
-								<Button href={`/note/${note._id}`}>Edit</Button>
-								<Button
-									color="warning"
-									onClick={() => deleteHandler(note._id)}>
-									Delete
-								</Button>
-							</Typography>
-						</AccordionSummary>
-						<AccordionDetails>
-							<Card>
-								<h4>
-									<Badge variant="success">
-										Category - {note.category}
-									</Badge>
-								</h4>
-								<blockquote className="blockquote mb-0">
-									<p>{note.content}</p>
-									<footer className='blockquote-footer'>
-										Created on{" "}
-										<cite title="Source Title">
-											{note.createdAt.substring(0, 10)}
-										</cite>
-									</footer>
-								</blockquote>
-							</Card>
-						</AccordionDetails>
+					<AccordionSummary sx={{ backgroundColor: 'rgba(0,0,0,.03)' }} expandIcon={<ExpandMoreIcon />}>
+						<Typography
+							component="header"
+							sx={{ alignSelf: 'center', width: 'stretch' }}
+						>
+							{note.title}
+						</Typography>
+						<ButtonGroup variant="outlined" sx={{ display: 'flex' }}>
+							<Button onClick={() => navigate(`/note/${note._id}`)}>Edit</Button>
+							<Button
+								color="warning"
+								onClick={() => deleteHandler(note._id)}
+							>
+								Delete
+							</Button>
+						</ButtonGroup>
+
+					</AccordionSummary>
+					<AccordionDetails>
+						<Typography variant="h4">
+							Category - {note.category}
+						</Typography>
+						<blockquote>
+							<p>{note.content}</p>
+							<footer>
+								Created on{" "}
+								<cite title="Source Title">
+									{note.createdAt.substring(0, 10)}
+								</cite>
+							</footer>
+						</blockquote>
+					</AccordionDetails>
 				</Accordion>
 			))
 		}
