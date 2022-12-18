@@ -3,11 +3,14 @@
   "packageManager": "yarn@3.3.0",
   "main": "server.js",
   "author": "Everett Lindsay",
+  "workspaces": [
+    "frontend"
+  ],
   "scripts": {
-    "start": "nodemon backend/server.js",
-    "client": "cd frontend && yarn dev",
-    "dev": "concurrently \"yarn start\" \"yarn run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd frontend yarn && yarn build"
+    "client": "yarn workspace frontend dev",
+    "server": "nodemon backend/server.js",
+    "start": "concurrently \"yarn client\" \"yarn server\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd frontend && yarn && yarn build"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
