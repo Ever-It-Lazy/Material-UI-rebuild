@@ -1,17 +1,15 @@
 {
-  "name": "material-UI-test",
-  "packageManager": "yarn@3.3.0",
+  "name": "notezipper-rebuild",
+  "version": "1.0.0",
   "main": "server.js",
-  "author": "Everett Lindsay",
-  "workspaces": [
-    "frontend"
-  ],
   "scripts": {
-    "client": "yarn workspace frontend dev",
+    "client": "npm run dev --prefix frontend",
     "server": "nodemon backend/server.js",
-    "start": "concurrently \"yarn client\" \"yarn server\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd frontend && yarn && yarn build"
+    "dev": "concurrently \"npm run client\" \"npm run server\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
+  "author": "Everett Lindsay",
+  "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "concurrently": "^7.6.0",
