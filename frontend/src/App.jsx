@@ -28,6 +28,15 @@ const theme = createTheme({
 				variant: 'contained'
 			}
 		},
+		MuiTextField: {
+			defaultProps: {
+				variant: 'outlined',
+				sx: {
+					marginTop: '10px',
+					marginBottom: '10px'
+				}
+			}
+		}
 	}
 });
 

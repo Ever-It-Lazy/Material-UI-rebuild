@@ -1,23 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@200&display=swap');
 
 .mainback {
-    /* min-height: 93vh; */
-    display: flex;
-    padding: 10px 0;
+	/* min-height: 93vh; */
+	display: flex;
+	padding: 10px 0;
 }
 .page {
-    width: 100%;
+	width: 100%;
 }
 .heading {
-    font-size: 60px;
-    font-family: "Work Sans", sans-serif;
-    padding: 5px 10px;
+	font-size: 60px;
+	font-family: "Work Sans", sans-serif;
+	padding: 5px 10px;
+}
+
+.MuiCardHeader-root,
+.MuiCard-root footer {
+	background-color: rgba(0, 0, 0, .03);
+	padding: 0.75rem 1.25rem;
+}
+.MuiCardHeader-root {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+.MuiCard-root footer {
+	border-top: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 @media only screen and (max-width: 600px) {
-    .heading {
-        font-size: 30px;
-        display: flex;
-        justify-content: center;
-    }
+	.heading {
+		font-size: 30px;
+		display: flex;
+		justify-content: center;
+	}
 }

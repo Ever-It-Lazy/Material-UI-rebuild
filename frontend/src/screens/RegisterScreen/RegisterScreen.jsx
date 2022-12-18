@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Box, FormControl, InputLabel, OutlinedInput } from '@mui/material';
+import { Button, Box, FormControl, TextField } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import MainScreen from '../../components/MainScreen';
 import "./RegisterScreen.css";
@@ -77,8 +77,8 @@ const RegisterScreen = () => {
 				{loading && <Loading />}
 				<Box component="form" onSubmit={submitHandler}>
 					<FormControl fullWidth={true}>
-						<InputLabel htmlFor="name">Name</InputLabel>
-						<OutlinedInput
+						<TextField
+							label="Name"
 							type="name"
 							value={name}
 							placeholder="Enter name"
@@ -87,8 +87,8 @@ const RegisterScreen = () => {
 					</FormControl>
 
 					<FormControl fullWidth={true}>
-						<InputLabel htmlFor="formBasicEmail">Email address</InputLabel>
-						<OutlinedInput
+						<TextField
+							label="Email Address"
 							id="formBasicEmail"
 							type="email"
 							value={email}
@@ -98,8 +98,8 @@ const RegisterScreen = () => {
 					</FormControl>
 
 					<FormControl fullWidth={true}>
-						<InputLabel htmlFor="formBasicPassword">Password</InputLabel>
-						<OutlinedInput
+						<TextField
+							label="Password"
 							id="formBasicPassword"
 							type="password"
 							value={password}
@@ -109,8 +109,8 @@ const RegisterScreen = () => {
 					</FormControl>
 
 					<FormControl fullWidth={true}>
-						<InputLabel htmlFor="confirmPassword">Confirm Password</InputLabel>
-						<OutlinedInput
+						<TextField
+							label="Confirm Password"
 							id="confirmPassword"
 							type="password"
 							value={confirmPassword}
@@ -124,20 +124,19 @@ const RegisterScreen = () => {
 					}
 
 					<FormControl fullWidth={true}>
-						<InputLabel htmlFor="pic">Profile Picture</InputLabel>
-						<OutlinedInput
+						<TextField
+							label="Upload Profile Picture"
 							id="pic"
 							type="file"
-							label="Upload Profile Picture"
 							onChange={(e) => postDetails(e.target.files[0])}
 						/>
 					</FormControl>
 
-					<Button variant="primary" type="submit">
+					<Button type="submit">
 						Register
 					</Button>
 				</Box>
-				<Box className="py-3">
+				<Box>
 					Have an Account ? <Link to="/login">Login</Link>
 				</Box>
 			</div>

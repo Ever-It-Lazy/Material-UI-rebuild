@@ -86,7 +86,10 @@ const Header = ({ setSearch }) => {
 				<Toolbar>
 					<Typography
 						component="h1"
-						sx={{ flexGrow: 1 }}
+						sx={{
+							flexGrow: 1,
+							cursor: "pointer"
+						}}
 						onClick={() => navigate("/")}
 					>
 						Note Zipper
@@ -148,7 +151,13 @@ const Header = ({ setSearch }) => {
 							</Menu>
 						</>
 					) : (
-						<Button color="inherit" href="/login">Login</Button>
+						<Button
+							variant="text" color="inherit"
+							href="/login"
+							sx={{ textTransform: 'none' }}
+						>
+							Login
+						</Button>
 					)}
 				</Toolbar>
 			</AppBar>

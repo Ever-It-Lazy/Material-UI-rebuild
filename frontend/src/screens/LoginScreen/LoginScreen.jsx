@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Box, FormControl, InputLabel, OutlinedInput, FormHelperText } from '@mui/material';
+import { Button, Box, FormControl, TextField, FormHelperText } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import MainScreen from '../../components/MainScreen';
 import "./LoginScreen.css";
@@ -39,10 +39,9 @@ const LoginScreen = () => {
 				{error && <ErrorMessage severity="error">{error}</ErrorMessage>}
 				{loading && <Loading />}
 				<Box component="form" onSubmit={submitHandler}>
-
 					<FormControl fullWidth={true}>
-						<InputLabel htmlFor="formBasicEmail">Email address</InputLabel>
-						<OutlinedInput
+						<TextField
+							label="Email Address"
 							id="formBasicEmail"
 							type="email"
 							value={email}
@@ -55,8 +54,8 @@ const LoginScreen = () => {
 					</FormControl>
 
 					<FormControl fullWidth={true}>
-						<InputLabel htmlFor="formBasicPassword">Password</InputLabel>
-						<OutlinedInput
+						<TextField
+							label="Password"
 							id="formBasicPassword"
 							type="password"
 							value={password}
@@ -65,11 +64,11 @@ const LoginScreen = () => {
 						/>
 					</FormControl>
 
-					<Button variant="primary" type="submit">
+					<Button type="submit">
 						Submit
 					</Button>
 				</Box>
-				<Box className="py-3">
+				<Box>
 					New Customer ? <Link to="/register">Register Here</Link>
 				</Box>
 			</div>

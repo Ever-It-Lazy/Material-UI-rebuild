@@ -22,20 +22,21 @@ const LandingPage = () => {
 							<h1 className="title">Welcome to Note Zipper</h1>
 							<p className="subtitle">One Safe place for all your notes.</p>
 							<div className="buttonContainer">
-								<a href="/login">
-									<Button size="lg" className="landingbutton">
-										Login
-									</Button>
-								</a>
-								<a href="/register">
-									<Button
-										size="lg"
-										className="landingbutton"
-										variant="outline-primary"
-									>
-										Signup
-									</Button>
-								</a>
+								<Button
+									href="/login"
+									size="large"
+									className="landingbutton"
+								>
+									Login
+								</Button>
+								<Button
+									href="/register"
+									size="large"
+									className="landingbutton"
+									color="inherit"
+								>
+									Signup
+								</Button>
 							</div>
 						</div>
 					</div>

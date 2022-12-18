@@ -3,8 +3,6 @@ import {
 	Button,
 	Box,
 	FormControl,
-	InputLabel,
-	OutlinedInput,
 	TextField,
 	Card, CardHeader, CardContent
 } from '@mui/material';
@@ -43,15 +41,15 @@ const CreateNote = () => {
 
 	return (
 		<MainScreen title="Create a Note">
-			<Box>
-				<div>Create a new Note</div>
-				<div>
+			<Card>
+				<CardHeader title="Create a new Note"></CardHeader>
+				<CardContent>
 					<Box component="form" onSubmit={submitHandler}>
 						{error && <ErrorMessage severity="error">{error}</ErrorMessage>}
 
 						<FormControl fullWidth={true}>
-							<InputLabel htmlFor="title">Title</InputLabel>
-							<OutlinedInput
+							<TextField
+								label="Title"
 								type="title"
 								value={title}
 								placeholder="Enter the title"
@@ -60,8 +58,8 @@ const CreateNote = () => {
 						</FormControl>
 
 						<FormControl fullWidth={true}>
-							<InputLabel htmlFor="content">Content</InputLabel>
 							<TextField
+								label="Content"
 								multiline={true}
 								value={content}
 								placeholder="Enter the Content"
@@ -80,8 +78,8 @@ const CreateNote = () => {
 						)}
 
 						<FormControl fullWidth={true}>
-							<InputLabel htmlFor="category">Category</InputLabel>
-							<OutlinedInput
+							<TextField
+								label="Category"
 								type="category"
 								value={category}
 								placeholder="Enter the Category"
@@ -91,19 +89,19 @@ const CreateNote = () => {
 
 						{loading && <Loading size={50} />}
 
-						<Button type="submit" variant="primary">
+						<Button type="submit">
 							Create Note
 						</Button>
-						<Button className="mx-2" onClick={resetHandler} variant="danger">
+						<Button color="warning" onClick={resetHandler}>
 							Reset Fields
 						</Button>
 					</Box>
-				</div>
+				</CardContent>
 
-				<div className="text-muted">
+				<footer>
 					Creating on - {new Date().toLocaleDateString()}
-				</div>
-			</Box>
+				</footer>
+			</Card>
 		</MainScreen>
 	)
 }
