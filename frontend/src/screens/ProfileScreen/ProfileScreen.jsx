@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Box, FormControl, InputLabel, OutlinedInput } from '@mui/material';
+import { Button, Box, FormControl, TextField } from '@mui/material';
 import MainScreen from "../../components/MainScreen";
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorMessage from '../../components/ErrorMessage';
@@ -88,8 +88,8 @@ const ProfileScreen = () => {
 							{error && <ErrorMessage severity="error">{error}</ErrorMessage>}
 
 							<FormControl>
-								<InputLabel htmlFor="name">Name</InputLabel>
-								<OutlinedInput
+								<TextField
+									label="Name"
 									id="name"
 									type="text"
 									placeholder="Enter Name"
@@ -99,8 +99,8 @@ const ProfileScreen = () => {
 							</FormControl>
 
 							<FormControl>
-								<InputLabel htmlFor="email">Email Address</InputLabel>
-								<OutlinedInput
+								<TextField
+									label="Email Address"
 									id="email"
 									type="email"
 									placeholder="Enter Email"
@@ -110,8 +110,8 @@ const ProfileScreen = () => {
 							</FormControl>
 
 							<FormControl>
-								<InputLabel htmlFor="password">Password</InputLabel>
-								<OutlinedInput
+								<TextField
+									label="Password"
 									id="password"
 									type="password"
 									placeholder="Enter Password"
@@ -121,8 +121,8 @@ const ProfileScreen = () => {
 							</FormControl>
 
 							<FormControl>
-								<InputLabel htmlFor="confirmPassword">Confirm Password</InputLabel>
-								<OutlinedInput
+								<TextField
+									label="Confirm Password"
 									id="confirmPassword"
 									type="password"
 									placeholder="Confirm Password"
@@ -136,8 +136,7 @@ const ProfileScreen = () => {
 							)}
 
 							<FormControl>
-								<InputLabel htmlFor="pic">Confirm Profile Picture</InputLabel>
-								<OutlinedInput
+								<TextField
 									id="pic"
 									type="file"
 									label="Upload Profile Picture"
@@ -145,7 +144,7 @@ const ProfileScreen = () => {
 								/>
 							</FormControl>
 
-							<Button variant="primary" type="submit">
+							<Button type="submit">
 								Update
 							</Button>
 						</Box>
