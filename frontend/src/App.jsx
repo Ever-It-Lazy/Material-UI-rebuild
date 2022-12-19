@@ -14,7 +14,7 @@ import CreateNote from './screens/CreateNote/CreateNote';
 import SingleNote from './screens/SingleNote/SingleNote';
 import { useState } from 'react';
 import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
-import { createTheme, ThemeProvider } from '@mui/material'
+import { createTheme, ThemeProvider } from '@mui/material';
 
 const theme = createTheme({
 	components: {
@@ -35,6 +35,14 @@ const theme = createTheme({
 					marginTop: '10px',
 					marginBottom: '10px'
 				}
+			}
+		},
+		MuiCardHeader: {
+			defaultProps: {
+				titleTypographyProps: {
+					variant: 'p'
+				},
+				margin: 0
 			}
 		}
 	}

@@ -42,7 +42,7 @@ const CreateNote = () => {
 	return (
 		<MainScreen title="Create a Note">
 			<Card>
-				<CardHeader title="Create a new Note"></CardHeader>
+				<CardHeader title="Create a new Note" />
 				<CardContent>
 					<Box component="form" onSubmit={submitHandler}>
 						{error && <ErrorMessage severity="error">{error}</ErrorMessage>}
@@ -70,7 +70,7 @@ const CreateNote = () => {
 
 						{content && (
 							<Card>
-								<CardHeader>Note Preview</CardHeader>
+								<CardHeader title="Note Preview" />
 								<CardContent>
 									<ReactMarkdown>{content}</ReactMarkdown>
 								</CardContent>
@@ -89,7 +89,7 @@ const CreateNote = () => {
 
 						{loading && <Loading size={50} />}
 
-						<Button type="submit">
+						<Button type="submit" sx={{ marginRight: "10px" }}>
 							Create Note
 						</Button>
 						<Button color="warning" onClick={resetHandler}>
