@@ -84,7 +84,6 @@ const MyNotes = ({ search }) => {
 	}, [dispatch, userInfo, navigate, successCreate, successUpdate, successDelete]);
 
 	const [expanded, setExpanded] = useState(notes);
-	console.log(notes);
 
 	const handleChange = (panel) => (event, newExpanded) => {
 		setExpanded(newExpanded ? panel : false);
