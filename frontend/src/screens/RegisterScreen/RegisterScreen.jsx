@@ -76,7 +76,7 @@ const RegisterScreen = () => {
 				{message && <ErrorMessage severity="error">{message}</ErrorMessage>}
 				{loading && <Loading />}
 				<Box component="form" onSubmit={submitHandler}>
-					<FormControl fullWidth={true}>
+					<FormControl>
 						<TextField
 							label="Name"
 							type="name"
@@ -86,7 +86,7 @@ const RegisterScreen = () => {
 						/>
 					</FormControl>
 
-					<FormControl fullWidth={true}>
+					<FormControl>
 						<TextField
 							label="Email Address"
 							id="formBasicEmail"
@@ -97,7 +97,7 @@ const RegisterScreen = () => {
 						/>
 					</FormControl>
 
-					<FormControl fullWidth={true}>
+					<FormControl>
 						<TextField
 							label="Password"
 							id="formBasicPassword"
@@ -108,7 +108,7 @@ const RegisterScreen = () => {
 						/>
 					</FormControl>
 
-					<FormControl fullWidth={true}>
+					<FormControl>
 						<TextField
 							label="Confirm Password"
 							id="confirmPassword"
@@ -123,7 +123,7 @@ const RegisterScreen = () => {
 						<ErrorMessage severity="error">{picMessage}</ErrorMessage>
 					}
 
-					<FormControl fullWidth={true}>
+					<FormControl>
 						<TextField
 							label="Upload Profile Picture"
 							id="pic"

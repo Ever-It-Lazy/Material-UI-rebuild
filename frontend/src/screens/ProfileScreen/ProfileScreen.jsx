@@ -87,7 +87,7 @@ const ProfileScreen = () => {
 							)}
 							{error && <ErrorMessage severity="error">{error}</ErrorMessage>}
 
-							<FormControl fullWidth={true}>
+							<FormControl>
 								<InputLabel htmlFor="name">Name</InputLabel>
 								<OutlinedInput
 									id="name"
@@ -98,7 +98,7 @@ const ProfileScreen = () => {
 								/>
 							</FormControl>
 
-							<FormControl fullWidth={true}>
+							<FormControl>
 								<InputLabel htmlFor="email">Email Address</InputLabel>
 								<OutlinedInput
 									id="email"
@@ -109,7 +109,7 @@ const ProfileScreen = () => {
 								/>
 							</FormControl>
 
-							<FormControl fullWidth={true}>
+							<FormControl>
 								<InputLabel htmlFor="password">Password</InputLabel>
 								<OutlinedInput
 									id="password"
@@ -120,7 +120,7 @@ const ProfileScreen = () => {
 								/>
 							</FormControl>
 
-							<FormControl fullWidth={true}>
+							<FormControl>
 								<InputLabel htmlFor="confirmPassword">Confirm Password</InputLabel>
 								<OutlinedInput
 									id="confirmPassword"
@@ -135,7 +135,7 @@ const ProfileScreen = () => {
 								<ErrorMessage severity="error">{picMessage}</ErrorMessage>
 							)}
 
-							<FormControl fullWidth={true}>
+							<FormControl>
 								<InputLabel htmlFor="pic">Confirm Profile Picture</InputLabel>
 								<OutlinedInput
 									id="pic"

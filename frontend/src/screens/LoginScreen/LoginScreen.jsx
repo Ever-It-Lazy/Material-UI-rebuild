@@ -39,7 +39,7 @@ const LoginScreen = () => {
 				{error && <ErrorMessage severity="error">{error}</ErrorMessage>}
 				{loading && <Loading />}
 				<Box component="form" onSubmit={submitHandler}>
-					<FormControl fullWidth={true}>
+					<FormControl>
 						<TextField
 							label="Email Address"
 							id="formBasicEmail"
@@ -53,7 +53,7 @@ const LoginScreen = () => {
 						</FormHelperText>
 					</FormControl>
 
-					<FormControl fullWidth={true}>
+					<FormControl>
 						<TextField
 							label="Password"
 							id="formBasicPassword"

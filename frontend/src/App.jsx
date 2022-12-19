@@ -44,6 +44,11 @@ const theme = createTheme({
 				},
 				margin: 0
 			}
+		},
+		MuiFormControl: {
+			defaultProps: {
+				fullWidth: true
+			}
 		}
 	}
 });

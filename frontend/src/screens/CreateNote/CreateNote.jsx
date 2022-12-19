@@ -47,7 +47,7 @@ const CreateNote = () => {
 					<Box component="form" onSubmit={submitHandler}>
 						{error && <ErrorMessage severity="error">{error}</ErrorMessage>}
 
-						<FormControl fullWidth={true}>
+						<FormControl>
 							<TextField
 								label="Title"
 								type="title"
@@ -57,7 +57,7 @@ const CreateNote = () => {
 							/>
 						</FormControl>
 
-						<FormControl fullWidth={true}>
+						<FormControl>
 							<TextField
 								label="Content"
 								multiline={true}
@@ -77,7 +77,7 @@ const CreateNote = () => {
 							</Card>
 						)}
 
-						<FormControl fullWidth={true}>
+						<FormControl>
 							<TextField
 								label="Category"
 								type="category"
