@@ -14,50 +14,14 @@ import CreateNote from './screens/CreateNote/CreateNote';
 import SingleNote from './screens/SingleNote/SingleNote';
 import { useState } from 'react';
 import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
-import { createTheme, ThemeProvider } from '@mui/material';
-
-const theme = createTheme({
-	components: {
-		MuiButton: {
-			defaultProps: {
-				variant: 'contained'
-			}
-		},
-		MuiButtonGroup: {
-			defaultProps: {
-				variant: 'contained'
-			}
-		},
-		MuiTextField: {
-			defaultProps: {
-				variant: 'outlined',
-				sx: {
-					marginTop: '10px',
-					marginBottom: '10px'
-				}
-			}
-		},
-		MuiCardHeader: {
-			defaultProps: {
-				titleTypographyProps: {
-					variant: 'p'
-				},
-				margin: 0
-			}
-		},
-		MuiFormControl: {
-			defaultProps: {
-				fullWidth: true
-			}
-		}
-	}
-});
+import { ThemeProvider } from '@mui/material';
+import { defaultTheme } from "./themes/defaultTheme";
 
 const App = () => {
 	const [search, setSearch] = useState("");
 
 	return (
-		<ThemeProvider theme={theme}>
+		<ThemeProvider theme={defaultTheme}>
 			<BrowserRouter>
 				<Header setSearch={setSearch} />
 				<main>
