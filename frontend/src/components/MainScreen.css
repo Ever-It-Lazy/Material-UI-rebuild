@@ -24,7 +24,24 @@
 }
 .MuiCard-root footer {
 	border-top: 1px solid rgba(0, 0, 0, 0.12);
-	color: rgba(0, 0, 0, 0.4)
+	color: rgba(0, 0, 0, 0.4);
+}
+
+.MuiAccordionDetails-root h4 {
+	display:inline-block;
+	font-size: small;
+	color: white;
+	background-color: rgb(97, 176, 64);
+	padding: 3px 6px;
+	border-radius: 6px;
+	margin: 0;
+}
+.MuiAccordionDetails-root blockquote {
+	margin: 0;
+}
+.MuiAccordionDetails-root footer {
+	color: rgba(0, 0, 0, 0.4);
+	font-size: small;
 }
 
 @media only screen and (max-width: 600px) {

@@ -139,7 +139,6 @@ const ProfileScreen = () => {
 								<TextField
 									id="pic"
 									type="file"
-									label="Upload Profile Picture"
 									onChange={(e) => postDetails(e.target.files[0])}
 								/>
 							</FormControl>

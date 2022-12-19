@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteNoteAction, listNotes } from '../../actions/noteActions';
 import Loading from '../../components/Loading';
 import ErrorMessage from '../../components/ErrorMessage';
+import ReactMarkdown from "react-markdown";
 
 const Accordion = styled((props) => (
 	<MuiAccordion disableGutters elevation={0} square {...props} />
@@ -125,18 +126,16 @@ const MyNotes = ({ search }) => {
 
 					</AccordionSummary>
 					<AccordionDetails>
-						<Typography variant="h4">
-							Category - {note.category}
-						</Typography>
+						<h4>Category - {note.category}</h4>
 						<blockquote>
-							<p>{note.content}</p>
-							<footer>
-								Created on{" "}
-								<cite title="Source Title">
-									{note.createdAt.substring(0, 10)}
-								</cite>
-							</footer>
+							<ReactMarkdown>{note.content}</ReactMarkdown>
 						</blockquote>
+						<footer>
+							Created on{" "}
+							<cite title="Source Title">
+								{note.createdAt.substring(0, 10)}
+							</cite>
+						</footer>
 					</AccordionDetails>
 				</Accordion>
 			))
