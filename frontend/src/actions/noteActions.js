@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
 	NOTE_CREATE_FAIL,
 	NOTE_CREATE_REQUEST,
@@ -20,14 +19,13 @@ export const listNotes = () => async (dispatch, getState) => {
 
 		const { userLogin: { userInfo } } = getState();
 
-		const { data } = await axios.get(
+		const data = await fetch(
 			"/api/notes",
 			{
-				headers: {
-					Authorization: `Bearer ${userInfo.token}`
-				}
+				method: 'get',
+				headers: { Authorization: `Bearer ${userInfo.token}` }
 			}
-		);
+		).then(response => response.json());
 
 		dispatch({ type: NOTE_LIST_SUCCESS, payload: data });
 	} catch (error) {
@@ -47,16 +45,17 @@ export const createNoteAction = (title, content, category) => async (dispatch, g
 
 		const { userLogin: { userInfo } } = getState();
 
-		const { data } = await axios.post(
+		const data = await fetch(
 			"/api/notes/create",
-			{ title, content, category },
 			{
+				method: 'post',
+				body: JSON.stringify({ title, content, category }),
 				headers: {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${userInfo.token}`
 				}
 			}
-		);
+		).then(response => response.json());
 
 		dispatch({ type: NOTE_CREATE_SUCCESS, payload: data });
 	} catch (error) {
@@ -76,16 +75,17 @@ export const updateNoteAction = (id, title, content, category) => async (dispatc
 
 		const { userLogin: { userInfo } } = getState();
 
-		const { data } = await axios.put(
+		const data = await fetch(
 			`/api/notes/${id}`,
-			{ title, content, category },
 			{
+				method: 'put',
+				body: JSON.stringify({ title, content, category }),
 				headers: {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${userInfo.token}`
 				}
 			}
-		);
+		).then(response => response.json());
 
 		dispatch({ type: NOTE_UPDATE_SUCCESS, payload: data });
 	} catch (error) {
@@ -105,15 +105,13 @@ export const deleteNoteAction = (id) => async (dispatch, getState) => {
 
 		const { userLogin: { userInfo } } = getState();
 
-		const { data } = await axios.delete(
+		const data = await fetch(
 			`/api/notes/${id}`,
 			{
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${userInfo.token}`
-				}
+				method: 'delete',
+				headers: { Authorization: `Bearer ${userInfo.token}` }
 			}
-		);
+		).then(response => response.json());
 
 		dispatch({ type: NOTE_DELETE_SUCCESS, payload: data });
 	} catch (error) {

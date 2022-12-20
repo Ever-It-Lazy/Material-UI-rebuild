@@ -13,7 +13,6 @@ import Loading from '../../components/Loading';
 import MainScreen from '../../components/MainScreen';
 import ReactMarkdown from "react-markdown";
 import { deleteNoteAction, updateNoteAction } from '../../actions/noteActions';
-import axios from 'axios';
 
 const SingleNote = () => {
 	const [title, setTitle] = useState("");
@@ -41,7 +40,8 @@ const SingleNote = () => {
 
 	useEffect(() => {
 		const fetching = async () => {
-			const { data } = await axios.get(`/api/notes/${id}`);
+			const data = await fetch(`/api/notes/${id}`)
+				.then(response => response.json());
 
 			setTitle(data.title);
 			setContent(data.content);

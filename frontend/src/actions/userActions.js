@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
 	USER_LOGIN_FAIL,
 	USER_LOGIN_REQUEST,
@@ -16,15 +15,14 @@ export const login = (email, password ) => async (dispatch) => {
 	try {
 		dispatch({ type: USER_LOGIN_REQUEST });
 
-		const { data } = await axios.post(
+		const data = await fetch(
 			"/api/users/login",
-			{ email, password },
 			{
-				headers: {
-					'Content-Type': 'application/json'
-				}
+				method: 'post',
+				body: JSON.stringify({ email, password }),
+				headers: { 'Content-Type': 'application/json' }
 			}
-		);
+		).then(response => response.json());
 
 		dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
 		localStorage.setItem('userInfo', JSON.stringify(data));
@@ -48,15 +46,14 @@ export const register = ( name, pic, email, password ) => async (dispatch) => {
 	try {
 		dispatch({ type: USER_REGISTER_REQUEST });
 
-		const { data } = await axios.post(
+		const data = await fetch(
 			"/api/users",
-			{ name, pic, email, password },
 			{
-				headers: {
-					'Content-Type': 'application/json'
-				}
+				method: 'post',
+				body: JSON.stringify({ name, pic, email, password }),
+				headers: { 'Content-Type': 'application/json' }
 			}
-		);
+		).then(response => response.json());
 
 		dispatch({
 			type: USER_REGISTER_SUCCESS,
@@ -85,16 +82,17 @@ export const updateProfile = (user) => async (dispatch, getState) => {
 
 		const { userLogin: { userInfo } } = getState();
 
-		const { data } = await axios.post(
+		const data = await fetch(
 			"/api/users/profile",
-			user,
 			{
+				method: 'post',
+				body: JSON.stringify(user),
 				headers: {
 					'Content-Type': 'application/json',
 					Authorization: `Bearer ${userInfo.token}`
 				}
 			}
-		);
+		).then(response => response.json());
 
 		dispatch({
 			type: USER_UPDATE_SUCCESS,
