@@ -100,12 +100,12 @@ const MyNotes = ({ search }) => {
 		{errorDelete && <ErrorMessage severity="error">{errorDelete}</ErrorMessage>}
 		{loadingDelete && <Loading/>}
 		{error && <ErrorMessage severity="error">{error}</ErrorMessage>}
-		{loading && <Loading/>}
+		{loading && <Loading />}
 		<div>
 		{
-			notes?.reverse().filter(filteredNote => (
+			notes?.filter(filteredNote => (
 				filteredNote.title.toLowerCase().includes(search.toLowerCase())
-			)).map((note) => (
+			)).reverse().map((note) => (
 				<Accordion key={note._id} expanded={expanded === note._id} onChange={handleChange(note._id)}>
 					<AccordionSummary id={note._id}>
 						<Typography
