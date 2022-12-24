@@ -1,29 +1,19 @@
 import {
-	NOTE_CREATE_FAIL,
-	NOTE_CREATE_REQUEST,
-	NOTE_CREATE_SUCCESS,
 	NOTE_DELETE_FAIL,
 	NOTE_DELETE_REQUEST,
 	NOTE_DELETE_SUCCESS,
-	NOTE_LIST_FAIL,
-	NOTE_LIST_REQUEST,
-	NOTE_LIST_SUCCESS,
 	NOTE_UPDATE_FAIL,
 	NOTE_UPDATE_REQUEST,
 	NOTE_UPDATE_SUCCESS
 } from "../constants/noteConstants";
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-const initialState = {
-	notes: []
-};
-
 export const listNotes = createAsyncThunk(
-	'noteList/listNotes',
+	'notes/listNotes',
 	async (_, { getState, rejectWithValue }) => {
 		try {
 			const { userLogin: { userInfo } } = getState();
-throw { message: "here is my fake error" }
+
 			const data = await fetch(
 				"/api/notes",
 				{
@@ -31,6 +21,7 @@ throw { message: "here is my fake error" }
 					headers: { Authorization: `Bearer ${userInfo.token}` }
 				}
 			).then(response => response.json());
+
 			return data;
 		} catch (error) {
 			throw rejectWithValue(
@@ -42,9 +33,9 @@ throw { message: "here is my fake error" }
 	}
 );
 
-export const noteListSlice = createSlice({
+export const noteListReducer = createSlice({
 	name: 'notes',
-	initialState,
+	initialState: { notes: [] },
 	reducers: {},
 	extraReducers: {
 		[listNotes.pending]: (state) => {
@@ -59,39 +50,55 @@ export const noteListSlice = createSlice({
 			state.error = payload;
 		},
 	},
-});
+}).reducer;
 
-export const noteListReducer = noteListSlice.reducer;
+export const createNoteAction = createAsyncThunk(
+	'notes/createNote',
+	async ({ title, content, category }, { getState, rejectWithValue }) => {
+		try {
+			const { userLogin: { userInfo } } = getState();
 
-export const createNoteAction = (title, content, category) => async (dispatch, getState) => {
-	try {
-		dispatch({ type: NOTE_CREATE_REQUEST });
-
-		const { userLogin: { userInfo } } = getState();
-
-		const data = await fetch(
-			"/api/notes/create",
-			{
-				method: 'post',
-				body: JSON.stringify({ title, content, category }),
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${userInfo.token}`
+			const data = await fetch(
+				"/api/notes/create",
+				{
+					method: 'post',
+					body: JSON.stringify({ title, content, category }),
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${userInfo.token}`
+					}
 				}
-			}
-		).then(response => response.json());
+			).then(response => response.json());
 
-		dispatch({ type: NOTE_CREATE_SUCCESS, payload: data });
-	} catch (error) {
-		dispatch({
-			type: NOTE_CREATE_FAIL,
-			payload:
+			return data;
+		} catch (error) {
+			throw rejectWithValue(
 				error.response && error.response.data.message
 					? error.response.data.message
 					: error.message
-		});
+			);
+		}
 	}
-};
+);
+
+export const noteCreateReducer = createSlice({
+	name: 'note',
+	initialState: {},
+	reducers: {},
+	extraReducers: {
+		[createNoteAction.pending]: (state) => {
+			state.loading = true;
+		},
+		[createNoteAction.fulfilled]: (state) => {
+			state.loading = false;
+			state.success = true;
+		},
+		[createNoteAction.rejected]: (state, { payload }) => {
+			state.loading = false;
+			state.error = payload;
+		},
+	},
+}).reducer;
 
 export const updateNoteAction = (id, title, content, category) => async (dispatch, getState) => {
 	try {
