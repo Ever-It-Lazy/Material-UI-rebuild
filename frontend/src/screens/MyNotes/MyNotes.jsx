@@ -72,7 +72,7 @@ const MyNotes = ({ search }) => {
 
 	const deleteHandler = (id) => {
 		if (window.confirm("Are you sure?")) {
-			dispatch(deleteNoteAction(id));
+			dispatch(deleteNoteAction({ id }));
 		}
 	};
 

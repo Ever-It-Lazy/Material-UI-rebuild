@@ -32,7 +32,7 @@ const SingleNote = () => {
 
 	const updateHandler = (e) => {
 		e.preventDefault();
-		dispatch(updateNoteAction(id, title, content, category));
+		dispatch(updateNoteAction({ id, title, content, category }));
 		if (!title || !content || !category) return;
 
 		navigate("/mynotes");
@@ -54,7 +54,7 @@ const SingleNote = () => {
 
 	const deleteHandler = (id) => {
 		if (window.confirm("Are you sure?")) {
-			dispatch(deleteNoteAction(id));
+			dispatch(deleteNoteAction({ id }));
 			navigate("/mynotes");
 		}
 	};

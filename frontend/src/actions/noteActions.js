@@ -1,11 +1,3 @@
-import {
-	NOTE_DELETE_FAIL,
-	NOTE_DELETE_REQUEST,
-	NOTE_DELETE_SUCCESS,
-	NOTE_UPDATE_FAIL,
-	NOTE_UPDATE_REQUEST,
-	NOTE_UPDATE_SUCCESS
-} from "../constants/noteConstants";
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const listNotes = createAsyncThunk(
@@ -100,58 +92,96 @@ export const noteCreateReducer = createSlice({
 	},
 }).reducer;
 
-export const updateNoteAction = (id, title, content, category) => async (dispatch, getState) => {
-	try {
-		dispatch({ type: NOTE_UPDATE_REQUEST });
+export const updateNoteAction = createAsyncThunk(
+	'notes/updateNote',
+	async ({ id, title, content, category }, { getState, rejectWithValue }) => {
+		try {
+			const { userLogin: { userInfo } } = getState();
 
-		const { userLogin: { userInfo } } = getState();
-
-		const data = await fetch(
-			`/api/notes/${id}`,
-			{
-				method: 'put',
-				body: JSON.stringify({ title, content, category }),
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${userInfo.token}`
+			const data = await fetch(
+				`/api/notes/${id}`,
+				{
+					method: 'put',
+					body: JSON.stringify({ title, content, category }),
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${userInfo.token}`
+					}
 				}
-			}
-		).then(response => response.json());
+			).then(response => response.json());
 
-		dispatch({ type: NOTE_UPDATE_SUCCESS, payload: data });
-	} catch (error) {
-		dispatch({
-			type: NOTE_UPDATE_FAIL,
-			payload:
+			return data;
+		} catch (error) {
+			throw rejectWithValue(
 				error.response && error.response.data.message
 					? error.response.data.message
 					: error.message
-		});
+			);
+		}
 	}
-};
+);
 
-export const deleteNoteAction = (id) => async (dispatch, getState) => {
-	try {
-		dispatch({ type: NOTE_DELETE_REQUEST });
+export const noteUpdateReducer = createSlice({
+	name: 'note',
+	initialState: {},
+	reducers: {},
+	extraReducers: {
+		[updateNoteAction.pending]: (state) => {
+			state.loading = true;
+		},
+		[updateNoteAction.fulfilled]: (state) => {
+			state.loading = false;
+			state.success = true;
+		},
+		[updateNoteAction.rejected]: (state, { payload }) => {
+			state.loading = false;
+			state.error = payload;
+			state.success = false;
+		},
+	},
+}).reducer;
 
-		const { userLogin: { userInfo } } = getState();
+export const deleteNoteAction = createAsyncThunk(
+	'notes/deleteNote',
+	async ({ id }, { getState, rejectWithValue }) => {
+		try {
+			const { userLogin: { userInfo } } = getState();
 
-		const data = await fetch(
-			`/api/notes/${id}`,
-			{
-				method: 'delete',
-				headers: { Authorization: `Bearer ${userInfo.token}` }
-			}
-		).then(response => response.json());
+			const data = await fetch(
+				`/api/notes/${id}`,
+				{
+					method: 'delete',
+					headers: { Authorization: `Bearer ${userInfo.token}` }
+				}
+			).then(response => response.json());
 
-		dispatch({ type: NOTE_DELETE_SUCCESS, payload: data });
-	} catch (error) {
-		dispatch({
-			type: NOTE_DELETE_FAIL,
-			payload:
+			return data;
+		} catch (error) {
+			throw rejectWithValue(
 				error.response && error.response.data.message
 					? error.response.data.message
 					: error.message
-		});
+			);
+		}
 	}
-};
+);
+
+export const noteDeleteReducer = createSlice({
+	name: 'note',
+	initialState: {},
+	reducers: {},
+	extraReducers: {
+		[deleteNoteAction.pending]: (state) => {
+			state.loading = true;
+		},
+		[deleteNoteAction.fulfilled]: (state) => {
+			state.loading = false;
+			state.success = true;
+		},
+		[deleteNoteAction.rejected]: (state, { payload }) => {
+			state.loading = false;
+			state.error = payload;
+			state.success = false;
+		},
+	},
+}).reducer;
