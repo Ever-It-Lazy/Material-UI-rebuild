@@ -12,8 +12,56 @@ import {
 	NOTE_UPDATE_REQUEST,
 	NOTE_UPDATE_SUCCESS
 } from "../constants/noteConstants";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const listNotes = () => async (dispatch, getState) => {
+const initialState = {
+	notes: []
+};
+
+export const listNotes = createAsyncThunk(
+	//action type string
+	'noteList/listNotes',
+	// callback function
+	async (_, { dispatch, getState }) => {
+		dispatch({ type: NOTE_LIST_REQUEST });
+
+		const { userLogin: { userInfo } } = getState();
+
+		const data = await fetch(
+			"/api/notes",
+			{
+				method: 'get',
+				headers: { Authorization: `Bearer ${userInfo.token}` }
+			}
+		).then(response => response.json());
+
+		dispatch({ type: NOTE_LIST_SUCCESS, payload: data });
+		return data;
+	}
+);
+
+export const noteListSlice = createSlice({
+	name: 'notes',
+	initialState,
+	reducers: {},
+	extraReducers: {
+		[listNotes.pending]: (state) => {
+			state.loading = true;
+		},
+		[listNotes.fulfilled]: (state, { payload }) => {
+			state.loading = false;
+			state.notes = payload;
+		},
+		[listNotes.rejected]: (state, { payload }) => {
+			state.loading = false;
+			state.error = payload;
+		},
+	},
+});
+
+export const noteListReducer = noteListSlice.reducer;
+
+export const listNotes2 = () => async (dispatch, getState) => {
 	try {
 		dispatch({ type: NOTE_LIST_REQUEST });
 
