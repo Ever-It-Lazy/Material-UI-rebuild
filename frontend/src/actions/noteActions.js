@@ -19,24 +19,26 @@ const initialState = {
 };
 
 export const listNotes = createAsyncThunk(
-	//action type string
 	'noteList/listNotes',
-	// callback function
-	async (_, { dispatch, getState }) => {
-		dispatch({ type: NOTE_LIST_REQUEST });
-
-		const { userLogin: { userInfo } } = getState();
-
-		const data = await fetch(
-			"/api/notes",
-			{
-				method: 'get',
-				headers: { Authorization: `Bearer ${userInfo.token}` }
-			}
-		).then(response => response.json());
-
-		dispatch({ type: NOTE_LIST_SUCCESS, payload: data });
-		return data;
+	async (_, { getState, rejectWithValue }) => {
+		try {
+			const { userLogin: { userInfo } } = getState();
+throw { message: "here is my fake error" }
+			const data = await fetch(
+				"/api/notes",
+				{
+					method: 'get',
+					headers: { Authorization: `Bearer ${userInfo.token}` }
+				}
+			).then(response => response.json());
+			return data;
+		} catch (error) {
+			throw rejectWithValue(
+				error.response && error.response.data.message
+					? error.response.data.message
+					: error.message
+			);
+		}
 	}
 );
 
@@ -60,32 +62,6 @@ export const noteListSlice = createSlice({
 });
 
 export const noteListReducer = noteListSlice.reducer;
-
-export const listNotes2 = () => async (dispatch, getState) => {
-	try {
-		dispatch({ type: NOTE_LIST_REQUEST });
-
-		const { userLogin: { userInfo } } = getState();
-
-		const data = await fetch(
-			"/api/notes",
-			{
-				method: 'get',
-				headers: { Authorization: `Bearer ${userInfo.token}` }
-			}
-		).then(response => response.json());
-
-		dispatch({ type: NOTE_LIST_SUCCESS, payload: data });
-	} catch (error) {
-		dispatch({
-			type: NOTE_LIST_FAIL,
-			payload:
-				error.response && error.response.data.message
-					? error.response.data.message
-					: error.message
-		});
-	}
-};
 
 export const createNoteAction = (title, content, category) => async (dispatch, getState) => {
 	try {
