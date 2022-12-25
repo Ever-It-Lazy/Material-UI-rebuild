@@ -1,5 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+const handleErrors = (response) => {
+	if (!response.ok) {
+		throw Error(response.statusText);
+	}
+	return response;
+};
+
 export const listNotes = createAsyncThunk(
 	'notes/listNotes',
 	async (_, { getState, rejectWithValue }) => {
@@ -12,7 +19,7 @@ export const listNotes = createAsyncThunk(
 					method: 'get',
 					headers: { Authorization: `Bearer ${userInfo.token}` }
 				}
-			).then(response => response.json());
+			).then(handleErrors).then(response => response.json());
 
 			return data;
 		} catch (error) {
@@ -60,7 +67,7 @@ export const createNoteAction = createAsyncThunk(
 						Authorization: `Bearer ${userInfo.token}`
 					}
 				}
-			).then(response => response.json());
+			).then(handleErrors).then(response => response.json());
 
 			return data;
 		} catch (error) {
@@ -108,7 +115,7 @@ export const updateNoteAction = createAsyncThunk(
 						Authorization: `Bearer ${userInfo.token}`
 					}
 				}
-			).then(response => response.json());
+			).then(handleErrors).then(response => response.json());
 
 			return data;
 		} catch (error) {
@@ -153,7 +160,7 @@ export const deleteNoteAction = createAsyncThunk(
 					method: 'delete',
 					headers: { Authorization: `Bearer ${userInfo.token}` }
 				}
-			).then(response => response.json());
+			).then(handleErrors).then(response => response.json());
 
 			return data;
 		} catch (error) {
