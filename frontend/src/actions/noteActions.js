@@ -1,11 +1,5 @@
+import axios from "axios";
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
-const handleErrors = (response) => {
-	if (!response.ok) {
-		throw Error(response.statusText);
-	}
-	return response;
-};
 
 export const listNotes = createAsyncThunk(
 	'notes/listNotes',
@@ -13,13 +7,12 @@ export const listNotes = createAsyncThunk(
 		try {
 			const { userLogin: { userInfo } } = getState();
 
-			const data = await fetch(
+			const { data } = await axios.get(
 				"/api/notes",
 				{
-					method: 'get',
 					headers: { Authorization: `Bearer ${userInfo.token}` }
 				}
-			).then(handleErrors).then(response => response.json());
+			);
 
 			return data;
 		} catch (error) {
@@ -57,17 +50,16 @@ export const createNoteAction = createAsyncThunk(
 		try {
 			const { userLogin: { userInfo } } = getState();
 
-			const data = await fetch(
+			const { data } = await axios.post(
 				"/api/notes/create",
+				{ title, content, category },
 				{
-					method: 'post',
-					body: JSON.stringify({ title, content, category }),
 					headers: {
 						"Content-Type": "application/json",
 						Authorization: `Bearer ${userInfo.token}`
 					}
 				}
-			).then(handleErrors).then(response => response.json());
+			);
 
 			return data;
 		} catch (error) {
@@ -105,17 +97,16 @@ export const updateNoteAction = createAsyncThunk(
 		try {
 			const { userLogin: { userInfo } } = getState();
 
-			const data = await fetch(
+			const { data } = await axios.put(
 				`/api/notes/${id}`,
+				{ title, content, category },
 				{
-					method: 'put',
-					body: JSON.stringify({ title, content, category }),
 					headers: {
 						"Content-Type": "application/json",
 						Authorization: `Bearer ${userInfo.token}`
 					}
 				}
-			).then(handleErrors).then(response => response.json());
+			);
 
 			return data;
 		} catch (error) {
@@ -154,13 +145,12 @@ export const deleteNoteAction = createAsyncThunk(
 		try {
 			const { userLogin: { userInfo } } = getState();
 
-			const data = await fetch(
+			const { data } = await axios.delete(
 				`/api/notes/${id}`,
 				{
-					method: 'delete',
 					headers: { Authorization: `Bearer ${userInfo.token}` }
 				}
-			).then(handleErrors).then(response => response.json());
+			);
 
 			return data;
 		} catch (error) {
