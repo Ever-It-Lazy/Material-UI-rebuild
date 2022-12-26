@@ -58,6 +58,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Header = ({ setSearch }) => {
+	const noteList = useSelector(state => state.noteList);
+	const { notes } = noteList;
+	const notesExist = notes.length > 0;
+
 	const [anchorEl, setAnchorEl] = useState(null);
 
 	const handleMenu = (e) => {
@@ -80,9 +84,7 @@ const Header = ({ setSearch }) => {
 		navigate("/");
 	}
 
-	useEffect(() => {
-		console.log(location)
-	}, [userInfo]);
+	useEffect(() => {}, [userInfo]);
 
 	return (
 			<AppBar position="static">
@@ -98,8 +100,11 @@ const Header = ({ setSearch }) => {
 						Note Zipper
 					</Typography>
 
-					{userInfo && location.pathname == '/mynotes' && (
-						<Search sx={{ }}>
+					{userInfo
+						&& location.pathname == '/mynotes'
+						&& notesExist
+						&& (
+						<Search>
 							<SearchIconWrapper>
 								<SearchIcon />
 							</SearchIconWrapper>
