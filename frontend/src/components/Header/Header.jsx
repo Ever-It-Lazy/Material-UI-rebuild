@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
 	AppBar,
 	Toolbar,
@@ -69,6 +69,7 @@ const Header = ({ setSearch }) => {
 	};
 
 	const navigate = useNavigate();
+	const location = useLocation();
 	const dispatch = useDispatch();
 
 	const userLogin = useSelector(state => state.userLogin);
@@ -79,7 +80,9 @@ const Header = ({ setSearch }) => {
 		navigate("/");
 	}
 
-	useEffect(() => {}, [userInfo]);
+	useEffect(() => {
+		console.log(location)
+	}, [userInfo]);
 
 	return (
 			<AppBar position="static">
@@ -95,7 +98,7 @@ const Header = ({ setSearch }) => {
 						Note Zipper
 					</Typography>
 
-					{userInfo && (
+					{userInfo && location.pathname == '/mynotes' && (
 						<Search sx={{ }}>
 							<SearchIconWrapper>
 								<SearchIcon />
