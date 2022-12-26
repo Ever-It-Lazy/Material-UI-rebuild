@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createAction, createReducer } from '@reduxjs/toolkit';
 import {
 	USER_LOGOUT
 } from "../constants/userConstants";
@@ -28,6 +28,8 @@ export const login = createAsyncThunk(
 	}
 );
 
+const userLogout = createAction('user/logout');
+
 export const userLoginReducer = createSlice({
 	name: 'user',
 	initialState: {},
@@ -45,15 +47,15 @@ export const userLoginReducer = createSlice({
 				state.loading = false;
 				state.error = payload;
 			})
-			// .addCase(login.logout, (state) => {
-			// 	state = {};
-			// })
+			.addCase(userLogout, (state) => {
+				delete state.userInfo;
+			})
 	}
 }).reducer;
 
 export const logout = () => async (dispatch) => {
 	localStorage.removeItem("userInfo");
-	//dispatch({ type: USER_LOGOUT });
+	dispatch(userLogout());
 }
 
 const loginFulfilled = createAction('user/login/fulfilled');
