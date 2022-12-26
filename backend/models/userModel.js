@@ -26,7 +26,7 @@ const userSchema = mongoose.Schema(
 		pic: {
 			type: String,
 			required: true,
-			default: "https://photos.google.com/search/_cAF1QipOcCg2Rw0nTwIEY4bhcBzBpxybNpbN8vw_Everett%20Lindsay/photo/AF1QipNp4TbJym9P_WVjyM4coKZ1PU6HF3-slUKa8QE",
+			default: "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
 		},
 	},
 	{
