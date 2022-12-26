@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { userLoginReducer, userRegisterReducer, userUpdateReducer } from './actions/userActions';
-import { noteListReducer, noteCreateReducer, noteDeleteReducer, noteUpdateReducer } from './actions/noteActions';
+import { userLoginReducer, userRegisterReducer, userUpdateReducer } from './reducers/userReducers';
+import { noteListReducer, noteCreateReducer, noteDeleteReducer, noteUpdateReducer } from './reducers/noteReducers';
 
 const reducer = {
 	userLogin: userLoginReducer,
