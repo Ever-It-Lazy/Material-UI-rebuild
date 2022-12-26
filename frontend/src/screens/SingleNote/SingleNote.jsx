@@ -76,6 +76,7 @@ const SingleNote = () => {
 								value={title}
 								placeholder="Enter the title"
 								onChange={(e) => setTitle(e.target.value)}
+								required
 							/>
 						</FormControl>
 
@@ -87,6 +88,7 @@ const SingleNote = () => {
 								placeholder="Enter the Content"
 								rows={4}
 								onChange={(e) => setContent(e.target.value)}
+								required
 							/>
 						</FormControl>
 
@@ -106,6 +108,7 @@ const SingleNote = () => {
 								value={category}
 								placeholder="Enter the Category"
 								onChange={(e) => setCategory(e.target.value)}
+								required
 							/>
 						</FormControl>
 

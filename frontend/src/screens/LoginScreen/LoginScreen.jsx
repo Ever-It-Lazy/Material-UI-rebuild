@@ -47,6 +47,7 @@ const LoginScreen = () => {
 							value={email}
 							placeholder="Enter email"
 							onChange={(e) => setEmail(e.target.value)}
+							required
 						/>
 						<FormHelperText>
 							We'll never share your email with anyone else.
@@ -61,6 +62,7 @@ const LoginScreen = () => {
 							value={password}
 							placeholder="Password"
 							onChange={(e) => setPassword(e.target.value)}
+							required
 						/>
 					</FormControl>
 

@@ -83,6 +83,7 @@ const RegisterScreen = () => {
 							value={name}
 							placeholder="Enter name"
 							onChange={(e) => setName(e.target.value)}
+							required
 						/>
 					</FormControl>
 
@@ -94,6 +95,7 @@ const RegisterScreen = () => {
 							value={email}
 							placeholder="Enter email"
 							onChange={(e) => setEmail(e.target.value)}
+							required
 						/>
 					</FormControl>
 
@@ -105,6 +107,7 @@ const RegisterScreen = () => {
 							value={password}
 							placeholder="Password"
 							onChange={(e) => setPassword(e.target.value)}
+							required
 						/>
 					</FormControl>
 
@@ -116,6 +119,7 @@ const RegisterScreen = () => {
 							value={confirmPassword}
 							placeholder="Confirm Password"
 							onChange={(e) => setConfirmPassword(e.target.value)}
+							required
 						/>
 					</FormControl>
 
@@ -125,7 +129,6 @@ const RegisterScreen = () => {
 
 					<FormControl>
 						<TextField
-							label="Upload Profile Picture"
 							id="pic"
 							type="file"
 							onChange={(e) => postDetails(e.target.files[0])}
