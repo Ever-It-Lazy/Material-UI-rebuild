@@ -12,12 +12,17 @@ const registerUser = asyncHandler(async (req, res) => {
 		throw new Error("User Already Exists");
 	}
 
-	const user = await User.create({
+	const props = {
 		name,
 		email,
-		pic,
-		password,
-	});
+		password
+	};
+
+	if (req.body.pic) {
+		props.pic = req.body.pic;
+	}
+
+	const user = await User.create(props);
 
 	if (user) {
 		res.status(201).json({
