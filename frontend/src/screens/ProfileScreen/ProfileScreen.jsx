@@ -15,6 +15,7 @@ const ProfileScreen = () => {
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [picMessage, setPicMessage] = useState("");
+	const [error, setError] = useState("");
 
 	const dispatch = useDispatch();
 
@@ -22,7 +23,7 @@ const ProfileScreen = () => {
 	const { userInfo } = userLogin;
 
 	const userUpdate = useSelector((state) => state.userUpdate);
-	const { loading, error, success } = userUpdate;
+	const { loading, success } = userUpdate;
 
 	const navigate = useNavigate();
 
@@ -31,17 +32,21 @@ const ProfileScreen = () => {
 			setName(userInfo.name);
 			setEmail(userInfo.email);
 			setPic(userInfo.pic);
+			setError(userUpdate.error);
 		} else {
 			navigate("/");
 		}
-	}, [userInfo, navigate]);
+	}, [userInfo, navigate, userUpdate]);
 
 
 	const submitHandler = async (e) => {
 		e.preventDefault();
 
 		if (password === confirmPassword) {
+			setError("");
 			dispatch(updateProfile({ name, pic, email, password }));
+		} else {
+			setError("Both password fields must match");
 		}
 	};
 
@@ -85,8 +90,7 @@ const ProfileScreen = () => {
 									Updated Successfully
 								</ErrorMessage>
 							)}
-							{error && <ErrorMessage severity="error">{error}</ErrorMessage>}
-
+							{error && error.length > 0 && <ErrorMessage severity="error">{error}</ErrorMessage>}
 							<FormControl>
 								<TextField
 									label="Name"
