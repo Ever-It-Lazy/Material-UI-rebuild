@@ -60,7 +60,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const Header = ({ setSearch }) => {
 	const noteList = useSelector(state => state.noteList);
 	const { notes } = noteList;
-	const notesExist = notes.length > 0;
+	const multipleNotes = notes.length > 1;
 
 	const [anchorEl, setAnchorEl] = useState(null);
 
@@ -102,7 +102,7 @@ const Header = ({ setSearch }) => {
 
 					{userInfo
 						&& location.pathname == '/mynotes'
-						&& notesExist
+						&& multipleNotes
 						&& (
 						<Search>
 							<SearchIconWrapper>
