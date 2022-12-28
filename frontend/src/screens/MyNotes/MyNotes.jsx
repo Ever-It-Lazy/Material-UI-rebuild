@@ -105,7 +105,7 @@ const MyNotes = ({ search }) => {
 		{
 			notes?.filter(filteredNote => (
 				filteredNote.title.toLowerCase().includes(search.toLowerCase())
-			)).reverse().map((note) => (
+			)).map((note) => (
 				<Accordion key={note._id} expanded={expanded === note._id} onChange={handleChange(note._id)}>
 					<AccordionSummary id={note._id}>
 						<Typography
