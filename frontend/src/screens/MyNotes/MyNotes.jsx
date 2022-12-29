@@ -82,9 +82,16 @@ const MyNotes = ({ search }) => {
 		if (!userInfo) {
 			navigate("/");
 		}
+		//setExpanded(notes[0]._id)
 	}, [dispatch, userInfo, navigate, successCreate, successUpdate, successDelete]);
 
-	const [expanded, setExpanded] = useState(notes);
+	const [expanded, setExpanded] = useState(0);
+
+	useEffect(() => {
+		if (notes[0]) {
+			setExpanded(notes[0]._id);
+		}
+	}, [notes]);
 
 	const handleChange = (panel) => (event, newExpanded) => {
 		setExpanded(newExpanded ? panel : false);
@@ -106,7 +113,11 @@ const MyNotes = ({ search }) => {
 			notes?.filter(filteredNote => (
 				filteredNote.title.toLowerCase().includes(search.toLowerCase())
 			)).map((note, index) => (
-				<Accordion key={note._id} defaultExpanded={index === 0 ? true : false} onChange={handleChange(note._id)}>
+				<Accordion
+					key={note._id}
+					expanded={expanded === note._id}
+					onChange={handleChange(note._id)}
+				>
 					<AccordionSummary id={note._id}>
 						<Typography
 							component="header"
