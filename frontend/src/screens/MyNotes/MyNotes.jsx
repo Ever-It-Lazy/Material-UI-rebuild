@@ -7,7 +7,7 @@ import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import MainScreen from '../../components/MainScreen';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteNoteAction, listNotes } from '../../actions/noteActions';
@@ -54,6 +54,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 const MyNotes = ({ search }) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const { id } = useParams();
 
 	const noteList = useSelector(state => state.noteList);
 	const { loading, notes, error } = noteList;
@@ -82,16 +83,19 @@ const MyNotes = ({ search }) => {
 		if (!userInfo) {
 			navigate("/");
 		}
-		//setExpanded(notes[0]._id)
 	}, [dispatch, userInfo, navigate, successCreate, successUpdate, successDelete]);
 
 	const [expanded, setExpanded] = useState(0);
 
 	useEffect(() => {
 		if (notes[0]) {
-			setExpanded(notes[0]._id);
+			if (id && notes.filter(filteredNote => filteredNote._id === id).length === 1) {
+				setExpanded(id);
+			} else {
+				setExpanded(notes[0]._id);
+			}
 		}
-	}, [notes]);
+	}, [notes,id]);
 
 	const handleChange = (panel) => (event, newExpanded) => {
 		setExpanded(newExpanded ? panel : false);

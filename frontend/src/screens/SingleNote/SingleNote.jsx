@@ -36,7 +36,7 @@ const SingleNote = () => {
 		dispatch(updateNoteAction({ id, title, content, category }));
 		if (!title || !content || !category) return;
 
-		navigate("/mynotes");
+		navigate(`/mynotes/${id}`);
 	};
 
 	useEffect(() => {
